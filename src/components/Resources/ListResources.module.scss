@@ -1,0 +1,65 @@
+.allResources .resourceCard {
+  position: relative;
+  background-color: #1f1f1f;
+  color: #fff;
+  margin: 1rem;
+  border: 1px solid #8f8f8f;
+  &__detail {
+    padding: 1rem;
+    padding-right: 50px;
+    min-height: 100px;
+    &:hover {
+      background-color: #2f2f2f;
+      cursor: pointer;
+    }
+  }
+  &__title {
+    font-weight: 600;
+  }
+  &__subTitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+  &__chip {
+    font-weight: 600;
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      background-color: rgb(216, 101, 101);
+      span {
+        background-color: rgb(216, 101, 101);
+        border-radius: 50%;
+      }
+    }
+  }
+  &__button {
+    color: #FFF;
+  }
+  &__iconActions {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  &__icon {
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      color: rgb(80, 157, 209);
+    }
+  }
+  &__iconComplete {
+    color: rgb(80, 157, 209);
+    cursor: pointer;
+  }
+}
+
+.loading {
+  text-align: center;
+  margin: 2rem;
+}

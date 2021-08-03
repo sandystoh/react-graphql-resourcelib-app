@@ -1,0 +1,31 @@
+.button {
+  font: inherit;
+  border: 1px solid #dec4e4;
+  border-radius: 1rem;
+  box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.26);
+  background: #965fa1;
+  color: white;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+  background: #9452a1;
+  border-color: #d7ace0;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.cancel {
+  margin: 8px;
+  background-color: rgb(218, 120, 120);
+}
+
+.cancel:hover,
+.cancel:active {
+  background: rgb(216, 101, 101);
+  border-color: #eedcd4;
+}
