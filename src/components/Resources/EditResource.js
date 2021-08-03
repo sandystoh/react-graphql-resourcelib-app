@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import classes from './ListResources.module.scss';
 import EditIcon from '@material-ui/icons/Edit';
 import { CircularProgress, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
@@ -42,7 +42,7 @@ const EditResource = (props) => {
   }
 
   return (
-    <div>
+    <Fragment>
       <EditIcon className={classes.resourceCard__icon} onClick={handleEdit} />
       <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
         <DialogTitle id='form-dialog-title'>Edit Resource</DialogTitle>
@@ -50,7 +50,7 @@ const EditResource = (props) => {
           <EditResourceForm id={props.id} onSubmit={handleSubmit} onCancel={handleClose} />
         </DialogContent>
       </Dialog>
-    </div>
+    </Fragment>
   );
 };
 

@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useQuery } from '@apollo/client';
 import { GET_NEW_RESOURCE_OPTIONS } from '../../graphql/resources';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -30,6 +30,11 @@ const AddResource = (props) => {
   const [types, setTypes] = useState([]);
   const [levels, setLevels] = useState([{ name: 'ALL' }]);
   const { data, loading, error } = useQuery(GET_NEW_RESOURCE_OPTIONS);
+  const [submitError, setSubmitError] = useState(null);
+
+  const handleClose = () => {
+    setSubmitError(null);
+  };
 
   useEffect(() => {
     if (loading === false && data) {
@@ -90,6 +95,10 @@ const AddResource = (props) => {
   };
   const addResourceHandler = (event) => {
     event.preventDefault();
+    if(!state.title.trim().length || !state.author.trim().length) {
+      setSubmitError({title: 'Invalid Input', message: 'Please enter a valid Title and Author (non-Empty values)'})
+      return;
+    }
     const newResource = {
       title: state.title || '',
       description: state.description || '',
@@ -256,6 +265,15 @@ const AddResource = (props) => {
         <Button type='submit' className={muiclasses.textField}>Add Resource</Button>
         <Button type='button' cancel onClick={props.onCancel}>Cancel</Button>
       </form>
+      <Dialog open={!!submitError} onClose={handleClose}>
+        <DialogTitle>{submitError?.title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{submitError?.message}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button type="button" cancel onClick={handleClose}>OK</Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ErrorIcon from '@material-ui/icons/Error';
 import classes from './ListResources.module.scss';
@@ -36,7 +36,7 @@ const DeleteResource = (props) => {
   if (error) return <ErrorIcon color='secondary' />;
 
   return (
-    <div>
+    <Fragment>
       <DeleteForeverIcon className={classes.resourceCard__icon} onClick={openConfirmDialog} />
       <Dialog open={open} onClose={handleCancel} aria-labelledby='form-dialog-title'>
         <DialogTitle id='form-dialog-title'>Delete Resource</DialogTitle>
@@ -52,7 +52,7 @@ const DeleteResource = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Fragment>
   );
 };
 

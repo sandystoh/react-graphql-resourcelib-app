@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Card, Chip, CircularProgress, Dialog, Link } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { ALL_RESOURCES } from '../../graphql/resources';
 import classes from './ListResources.module.scss';
 import ForwardIcon from '@material-ui/icons/Forward';
@@ -62,7 +62,7 @@ const ListResources = (props) => {
   };
 
   return (
-    <div>
+    <Fragment>
       <NewResource onAdd={refreshPageHandler} />
       <Autocomplete
         className={classes.topicField}
@@ -104,7 +104,7 @@ const ListResources = (props) => {
       <Dialog open={open} onClose={handleClose}>
         <ResourceDetails id={selectedId} />
       </Dialog>
-    </div>
+    </Fragment>
   );
 };
 

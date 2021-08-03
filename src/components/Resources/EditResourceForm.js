@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -133,7 +133,7 @@ const EditResourceForm = (props) => {
   }
 
   return (
-    <div>
+    <Fragment>
       <form onSubmit={addResourceHandler}>
         <TextField
           className={muiclasses.textField}
@@ -243,7 +243,7 @@ const EditResourceForm = (props) => {
         <Button type='submit' className={muiclasses.textField}>Edit Resource</Button>
         <Button type='button' cancel onClick={props.onCancel}>Cancel</Button>
       </form>
-    </div>
+    </Fragment>
   );
 };
 
