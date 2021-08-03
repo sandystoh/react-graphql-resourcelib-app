@@ -1,5 +1,25 @@
 import { gql } from '@apollo/client';
 
+const RESOURCE_LIST_FIELDS = gql`
+  fragment resourceListFields on Resource {
+    id
+    title
+    description
+    author {
+      name
+    }
+    platform {
+      name
+    }
+    topics {
+      id
+      name
+    }
+    completed
+    url
+  }
+`;
+
 const RESOURCE_FIELDS = gql`
   fragment resourceFields on Resource {
     id
@@ -53,4 +73,4 @@ fragment getOptions on Query {
   }
 }
 `;
-export { RESOURCE_FIELDS, GET_OPTIONS };
+export { RESOURCE_LIST_FIELDS, RESOURCE_FIELDS, GET_OPTIONS };

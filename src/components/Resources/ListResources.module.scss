@@ -6,7 +6,7 @@
   border: 1px solid #8f8f8f;
   &__detail {
     padding: 1rem;
-    padding-right: 50px;
+    margin-right: 50px;
     min-height: 100px;
     &:hover {
       background-color: #2f2f2f;
@@ -62,4 +62,19 @@
 .loading {
   text-align: center;
   margin: 2rem;
+}
+
+.topicField {
+  margin: 1rem;
+  background-color: #3f3f3f;
+  width: calc(100vw - 2rem);
+  label, input, span {
+    color: #fff;
+  }
+  span {
+    color: #fff;
+  }
+  &__text {
+    background-color: #3f3f3f;
+  }
 }

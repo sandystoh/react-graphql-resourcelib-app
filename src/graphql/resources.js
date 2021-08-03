@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
-import { RESOURCE_FIELDS, GET_OPTIONS } from './fragments';
+import { RESOURCE_FIELDS, RESOURCE_LIST_FIELDS, GET_OPTIONS } from './fragments';
 
 const ALL_RESOURCES = gql`
-  ${RESOURCE_FIELDS}
+  ${RESOURCE_LIST_FIELDS}
   query AllResources($topicId: String) {
     allResources: resources(filter: { topicId: $topicId }) {
-      ...resourceFields
+      ...resourceListFields
     }
     allTopics {
       id
@@ -15,22 +15,31 @@ const ALL_RESOURCES = gql`
   }
 `;
 
+const GET_RESOURCE_DETAILS = gql`
+  ${RESOURCE_FIELDS}
+  query getResourceDetailsById($id: String!) {
+    resource(id: $id) {
+      ...resourceFields
+    }
+  }
+`;
+
 const GET_NEW_RESOURCE_OPTIONS = gql`
-${GET_OPTIONS}
-query getNewResourceOptions {
-  ...getOptions
-}
+  ${GET_OPTIONS}
+  query getNewResourceOptions {
+    ...getOptions
+  }
 `;
 
 const GET_RESOURCE_FOR_EDIT = gql`
-${RESOURCE_FIELDS}
-${GET_OPTIONS}
-query getResourceById($id: String!) {
-  resource(id: $id) {
-    ...resourceFields
+  ${RESOURCE_FIELDS}
+  ${GET_OPTIONS}
+  query getResourceById($id: String!) {
+    resource(id: $id) {
+      ...resourceFields
+    }
+    ...getOptions
   }
-  ...getOptions
-}
 `;
 
-export { ALL_RESOURCES, GET_RESOURCE_FOR_EDIT, GET_NEW_RESOURCE_OPTIONS };
+export { ALL_RESOURCES, GET_RESOURCE_DETAILS, GET_RESOURCE_FOR_EDIT, GET_NEW_RESOURCE_OPTIONS };

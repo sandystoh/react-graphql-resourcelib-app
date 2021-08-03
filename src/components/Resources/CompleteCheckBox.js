@@ -11,8 +11,8 @@ const CompleteCheckBox = (props) => {
   const [markComplete, { data, loading, error }] = useMutation(MARK_COMPLETE);
   if (loading) return '...';
   if (error) return <ErrorIcon color='secondary' />;
-  const markCompleteHandler = () => {
-    console.log(props.id, props.completed);
+  const markCompleteHandler = (event) => {
+    event.preventDefault();
     markComplete({ variables: { id: props.id, completed: !completed } }).then((resp, error) => {
       console.log(resp);
       if (resp && resp.data && resp.data.markResourceCompleted) {

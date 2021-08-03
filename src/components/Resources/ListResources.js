@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Card, Chip, CircularProgress, Link } from '@material-ui/core';
+import { Card, Chip, CircularProgress, Dialog, Link } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { ALL_RESOURCES } from '../../graphql/resources';
 import classes from './ListResources.module.scss';
@@ -10,14 +10,26 @@ import NewResource from './NewResource';
 import DeleteResource from './DeleteResource';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField } from '@material-ui/core';
+import ResourceDetails from './ResourceDetails';
 
 const ListResources = (props) => {
-  const { data, loading, error, refetch } = useQuery(ALL_RESOURCES, { variables: { topicId: null }});
+  const { data, loading, error, refetch } = useQuery(ALL_RESOURCES, { variables: { topicId: null } });
   const [topics, setTopics] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(0);
+  const handleOpen = (id) => () => {
+    console.log(id);
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (loading === false && data && data.allTopics) {
-      setTopics(data.allTopics.map(topic => ({ id: topic.id, name: topic.name})));
+      setTopics(data.allTopics.map((topic) => ({ id: topic.id, name: topic.name })));
     }
   }, [loading, data]);
 
@@ -39,8 +51,8 @@ const ListResources = (props) => {
   };
 
   const handleTopicChange = (event, newValue) => {
-    refetch({ topicId: (newValue && newValue.id) || null});
-  }
+    refetch({ topicId: (newValue && newValue.id) || null });
+  };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -52,21 +64,24 @@ const ListResources = (props) => {
   return (
     <div>
       <NewResource onAdd={refreshPageHandler} />
-      <Autocomplete  className={classes.topicField}
-          id='topics'
-          name='topics'
-          options={topics}
-          onChange={handleTopicChange}
-          getOptionLabel={(option) => (option && option.name) || ''}
-          getOptionSelected={(option, value) => option.id === value.id}
-          renderInput={(params) => <TextField {...params} className={classes.topicField__text} label='Topics' placeholder='Topics' variant="outlined" />}
-          selectOnFocus
-        />
+      <Autocomplete
+        className={classes.topicField}
+        id='topics'
+        name='topics'
+        options={topics}
+        onChange={handleTopicChange}
+        getOptionLabel={(option) => (option && option.name) || ''}
+        getOptionSelected={(option, value) => option.id === value.id}
+        renderInput={(params) => (
+          <TextField {...params} className={classes.topicField__text} label='Topics' placeholder='Topics' variant='outlined' />
+        )}
+        selectOnFocus
+      />
       <div className={classes.allResources}>
         {data.allResources &&
           data.allResources.map(({ id, title, author, platform, topics, completed, url }) => (
             <Card className={classes.resourceCard} key={id}>
-              <div className={classes.resourceCard__detail}>
+              <div className={classes.resourceCard__detail}  onClick={handleOpen(id)}>
                 <div className={classes.resourceCard__title}>{title}</div>
                 <div className={classes.resourceCard__subTitle}>
                   {author && author.name} | {platform && platform.name}
@@ -86,6 +101,9 @@ const ListResources = (props) => {
             </Card>
           ))}
       </div>
+      <Dialog open={open} onClose={handleClose}>
+        <ResourceDetails id={selectedId} />
+      </Dialog>
     </div>
   );
 };

@@ -1,0 +1,43 @@
+.detail {
+  border: 1px dashed #ddd;
+  background-color: #2f2f2f;
+  padding: 1rem;
+  color: #fff;
+  text-align: center;
+  &__title {
+    font-weight: 600;
+  }
+  &__icon {
+    height: 1rem;
+    color: rgb(80, 157, 209);
+  }
+  &__author {
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+  &__link span {
+    font-weight: 600;
+    color: rgb(184, 103, 103);
+  }
+  &__description {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #ddd;
+  }
+  &__chip {
+    font-weight: 600;
+    margin-top: 1rem;
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      background-color: rgb(216, 101, 101);
+      span {
+        background-color: rgb(216, 101, 101);
+        border-radius: 50%;
+      }
+    }
+  }
+}
