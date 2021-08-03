@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Card, Chip, CircularProgress, Link } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ALL_RESOURCES } from '../../graphql/resources';
 import classes from './ListResources.module.scss';
 import ForwardIcon from '@material-ui/icons/Forward';
@@ -8,9 +8,18 @@ import CompleteCheckBox from './CompleteCheckBox';
 import EditResource from './EditResource';
 import NewResource from './NewResource';
 import DeleteResource from './DeleteResource';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { TextField } from '@material-ui/core';
 
 const ListResources = (props) => {
-  const { data, loading, error, refetch } = useQuery(ALL_RESOURCES);
+  const { data, loading, error, refetch } = useQuery(ALL_RESOURCES, { variables: { topicId: null }});
+  const [topics, setTopics] = useState([]);
+
+  useEffect(() => {
+    if (loading === false && data && data.allTopics) {
+      setTopics(data.allTopics.map(topic => ({ id: topic.id, name: topic.name})));
+    }
+  }, [loading, data]);
 
   if (loading) {
     return (
@@ -29,6 +38,10 @@ const ListResources = (props) => {
     scrollToTop();
   };
 
+  const handleTopicChange = (event, newValue) => {
+    refetch({ topicId: (newValue && newValue.id) || null});
+  }
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -39,6 +52,16 @@ const ListResources = (props) => {
   return (
     <div>
       <NewResource onAdd={refreshPageHandler} />
+      <Autocomplete  className={classes.topicField}
+          id='topics'
+          name='topics'
+          options={topics}
+          onChange={handleTopicChange}
+          getOptionLabel={(option) => (option && option.name) || ''}
+          getOptionSelected={(option, value) => option.id === value.id}
+          renderInput={(params) => <TextField {...params} className={classes.topicField__text} label='Topics' placeholder='Topics' variant="outlined" />}
+          selectOnFocus
+        />
       <div className={classes.allResources}>
         {data.allResources &&
           data.allResources.map(({ id, title, author, platform, topics, completed, url }) => (

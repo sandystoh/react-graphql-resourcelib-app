@@ -3,9 +3,14 @@ import { RESOURCE_FIELDS, GET_OPTIONS } from './fragments';
 
 const ALL_RESOURCES = gql`
   ${RESOURCE_FIELDS}
-  query AllResources {
-    allResources {
+  query AllResources($topicId: String) {
+    allResources: resources(filter: { topicId: $topicId }) {
       ...resourceFields
+    }
+    allTopics {
+      id
+      name
+      description
     }
   }
 `;
