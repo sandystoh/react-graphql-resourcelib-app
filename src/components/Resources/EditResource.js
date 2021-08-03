@@ -8,7 +8,7 @@ import { EDIT_RESOURCE } from '../../graphql/mutations';
 
 const EditResource = (props) => {
   const [open, setOpen] = useState(false);
-  const [updateResource, { data, loading, error }] = useMutation(EDIT_RESOURCE);
+  const [updateResource, { loading, error }] = useMutation(EDIT_RESOURCE);
   const handleEdit = () => {
     setOpen(true);
   };
@@ -19,7 +19,6 @@ const EditResource = (props) => {
     console.log(resource);
     updateResource({ variables: { resourceUpdateInput: resource } })
       .then((resp, error) => {
-        console.log(resp);
         if (resp && resp.data && resp.data.updateResource && resp.data.updateResource.id) {
           setOpen(false);
           props.onEdit();

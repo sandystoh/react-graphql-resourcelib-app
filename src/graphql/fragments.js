@@ -5,6 +5,7 @@ const RESOURCE_LIST_FIELDS = gql`
     id
     title
     description
+    type
     author {
       name
     }

@@ -79,12 +79,12 @@ const ListResources = (props) => {
       />
       <div className={classes.allResources}>
         {data.allResources &&
-          data.allResources.map(({ id, title, author, platform, topics, completed, url }) => (
+          data.allResources.map(({ id, title, author, platform, topics, completed, url, type }) => (
             <Card className={classes.resourceCard} key={id}>
               <div className={classes.resourceCard__detail}  onClick={handleOpen(id)}>
                 <div className={classes.resourceCard__title}>{title}</div>
                 <div className={classes.resourceCard__subTitle}>
-                  {author && author.name} | {platform && platform.name}
+                  {author && author.name} | {platform && platform.name} | {type}
                 </div>
                 {topics.map((topic) => {
                   return <Chip key={topic.id} className={classes.resourceCard__chip} size='small' label={topic.name} color='secondary' />;

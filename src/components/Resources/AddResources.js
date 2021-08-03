@@ -28,7 +28,7 @@ const AddResource = (props) => {
   const [topics, setTopics] = useState([]);
   const [platforms, setPlatforms] = useState([]);
   const [types, setTypes] = useState([]);
-  const [levels, setLevels] = useState([]);
+  const [levels, setLevels] = useState([{ name: 'ALL' }]);
   const { data, loading, error } = useQuery(GET_NEW_RESOURCE_OPTIONS);
 
   useEffect(() => {

@@ -6,11 +6,10 @@ import classes from './ResourceDetails.module.scss';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const ResourceDetails = (props) => {
-  const { data, loading, error } = useQuery(GET_RESOURCE_DETAILS, { variables: { id: props.id } });
+  const { data, loading, error } = useQuery(GET_RESOURCE_DETAILS, { variables: { id: props.id }, fetchPolicy: "no-cache" });
   let resource = null;
   if (data && data.resource) {
     resource = data.resource;
-    console.log(resource);
   }
   if (loading) {
     return (
@@ -30,7 +29,7 @@ const ResourceDetails = (props) => {
         {resource.title} {resource.completed && <CheckCircleIcon fontSize='small' className={classes.detail__icon} />}
       </div>
       <div className={classes.detail__author}>
-        {resource.author.name} | {resource.platform.name}
+        {resource.author?.name} | {resource.platform?.name}
         <br />
         {resource.level} LEVEL(S) | {resource.type} | {resource.publicationYear}
         <br />

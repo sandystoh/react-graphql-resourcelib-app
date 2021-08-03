@@ -8,7 +8,7 @@ import { CircularProgress } from '@material-ui/core';
 
 const NewResource = (props) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [addResource, { data, loading, error }] = useMutation(ADD_RESOURCE);
+  const [addResource, { loading, error }] = useMutation(ADD_RESOURCE);
   const saveExpenseDataHandler = (enteredExpenseData) => {
     const expenseData = {
       ...enteredExpenseData,
@@ -27,10 +27,8 @@ const NewResource = (props) => {
   };
 
   const resourceSubmitHandler = (newResource) => {
-    console.log(newResource);
     addResource({ variables: { resourceInput: newResource } })
       .then((resp, error) => {
-        console.log(resp);
         if (resp && resp.data && resp.data.addResource) {
           setIsEditing(false);
           props.onAdd();

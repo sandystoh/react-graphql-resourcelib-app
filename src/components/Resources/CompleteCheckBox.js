@@ -8,13 +8,12 @@ import ErrorIcon from '@material-ui/icons/Error';
 
 const CompleteCheckBox = (props) => {
   const [completed, setIsCompleted] = useState(props.completed);
-  const [markComplete, { data, loading, error }] = useMutation(MARK_COMPLETE);
+  const [markComplete, { loading, error }] = useMutation(MARK_COMPLETE);
   if (loading) return '...';
   if (error) return <ErrorIcon color='secondary' />;
   const markCompleteHandler = (event) => {
     event.preventDefault();
     markComplete({ variables: { id: props.id, completed: !completed } }).then((resp, error) => {
-      console.log(resp);
       if (resp && resp.data && resp.data.markResourceCompleted) {
         setIsCompleted(!completed);
       }

@@ -8,7 +8,7 @@ import { DELETE_RESOURCE } from '../../graphql/mutations';
 
 const DeleteResource = (props) => {
   const [open, setOpen] = useState(false);
-  const [deleteResource, { data, loading, error }] = useMutation(DELETE_RESOURCE);
+  const [deleteResource, { loading, error }] = useMutation(DELETE_RESOURCE);
   const openConfirmDialog = () => {
     setOpen(true);
   };
@@ -16,7 +16,6 @@ const DeleteResource = (props) => {
     setOpen(false);
   };
   const handleDelete = (resource) => {
-    console.log(resource);
     deleteResource({ variables: { id: props.id } })
       .then((resp, error) => {
         console.log(resp);
